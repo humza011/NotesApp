@@ -1,0 +1,221 @@
+INSTALLING NODE
+
+1.https://nodejs.org
+
+2.Click -> Click - > Click -> Done
+
+
+CHECK INSTALLATION
+
+1.Open Termina/Command Prompt
+
+2.node -v
+
+
+INSTALL TEXT EDITOR
+
+VS Code / Sublime Text / Atom
+
+
+WHAT IS NODEJS?
+
+1. Node.Js is a way to run JS code on the server side as oppose to be the original JS
+    which only worked on client side ! Node.js is JS runtime built on Chrome's V8 engine ! 
+
+2. Why Chrome V8(written in C++ thus making it very fast in compilation) because its fastest !
+    A javascript engine is one which takes in JS code and converts it into machine code 
+    which can be easily understood by the machine ! 
+
+3. #Nodejs is not a programming language :D its runtime JS code ! Both Chrome and
+    NodeJS are written in C++ ! which runs on V8 engine also written in C++
+
+4. Some snippet are just NodeJS or Chrome specific ! 
+    (browser)Chrome ->  window , document
+    (server)Node.js -> global, process   
+
+
+WHY USE NODEJS ?
+
+ - Nodejs is a event-driven , non-blocking I/O model 	
+
+ - Blocking Example :
+
+// assume getData to be an API call
+console.log("Getting Data1");
+var data1 = getData('123');
+console.log("Data is:", data1);
+
+console.log("Getting Data2");
+var data2 = getData('456');
+console.log("Data is:", data2);
+
+var sum = 1 + 2;
+console.log("sum is:", sum);
+
+Output :
+
+Getting Data1
+Data is: {“id” : 123, “name” : “sarwar”}
+Getting Data2
+Data is: {“id” : 456, “name” : “nirmala”}
+sum is:3
+
+
+
+- Non - blocking Example :
+
+console.log("Getting Data1");
+getData('123', function(data1) {
+  console.log("Data is:", data1);
+});
+
+console.log("Getting Data2");
+getData('456', function(data1) {
+  console.log("Data is:", data1);
+});
+
+var sum = 1 + 2;
+console.log("sum is:", sum);
+
+Output :
+
+Getting Data1
+Getting Data2
+sum is:3
+Data is: {“id” : 123, “name” : “sarwar”}
+Data is: {“id” : 456, “name” : “nirmala”}
+
+
+- The non-blocking form will get executed faster than the blocking form and hence
+  code written in blocking form (in other languages) will take time than the one written
+  above, hence the power of Nodejs non-blocking I/O mode kicks in.
+
+
+NODE.JS MODULES
+
+1. Core Modules
+
+- Global
+
+console.log() ,  fs, http
+
+- Installed Modules
+
+express , mongoose 
+
+2. Third Party Modules
+
+const validator = require('validator');
+console.log(validator.isEmail('humza1mza.co'));   //false
+console.log(validator.isURL('http//www.npmjs.com/package/validator'));    //false
+console.log(validator.isDivisibleBy('1234',4));     //false
+
+
+const chalk = require('chalk');
+console.log(chalk.green("Success !!!"));
+console.log(chalk.bold.underline.bgRed("Warning !"));
+	
+
+
+3. User Created Modules
+
+App.js
+const name = "Humza";
+const util = require('./util.js');
+console.log(name);
+console.log(util.loca);
+console.log(util.add(5,5));
+
+Util.js
+
+console.log("Util Package");
+var loca = "Kolkata";
+const add = function(a , b) {
+    return a+b;
+}
+module.exports = {
+    add,
+    loca
+}
+
+
+COMMAND LINE ARGUMENTS
+
+console.log((process.argv));
+const command = process.argv[2];
+console.log(command);
+
+if (command == 'add')
+    console.log(chalk.green("Successfully Added !"));
+else
+    console.log(chalk.red('Please Retry !!'));
+
+
+
+
+COMMAND LINE ARGUMENTS USING YARGS MODULE(NPM)
+
+const yargs = require('yargs');
+
+yargs.command({
+    command : 'add',
+    describe: 'Add a new note',
+    handler  : function() {
+        console.log("Adding new note")
+    } 
+})
+
+yargs.command({
+    command : 'remove',
+    describe: 'Remove a note',
+    handler : function() {
+        console.log("Removing a note")
+    }
+})
+
+yargs.command({
+    command : 'read',
+    describe: 'Read a note',
+    handler : function() {
+        console.log("Reading a note")
+    }
+})
+
+yargs.command({
+    command : 'list',
+    describe: 'List all note',
+    handler : function() {
+        console.log("Listing all the notes")
+    }
+})
+
+
+Output :
+
+1. node app.js list  
+    Listing all the notes
+    { _: [ 'list' ], '$0': 'app.js' }
+
+
+2. node app.js read
+    Reading a note
+    { _: [ 'read' ], '$0': 'app.js' }
+
+
+
+
+
+ARROW FUNCTION IN EJS6
+
+const square = function (x) {
+    return x*x
+}
+
+const square = (x) => {
+    return x*x
+}
+
+
+const square = (x) => x*x 
+
+console.log(square(6)) 
